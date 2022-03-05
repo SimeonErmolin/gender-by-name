@@ -1,0 +1,17 @@
+.page {
+  display: flex;
+  justify-content: center;
+}
+.form {
+  margin-top: 10rem;
+}
+.form input {
+  margin-right: 5px;
+  padding: 5px;
+  font-size: 15px;
+}
+.result {
+  text-align: center;
+  font-size: 25px;
+  font-family: sans-serif;
+}
