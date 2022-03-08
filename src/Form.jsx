@@ -1,5 +1,5 @@
 import React from 'react'
-import Input  from './Input'
+import Input from './Input'
 import Button from './Button'
 import Deduction from './Deduction'
 import Warning from './Warning'
@@ -8,21 +8,30 @@ import requestGenderByName from './network'
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      value: '',
       infoUser: '',
       warn: false,
     };
+
+    this.handleValueChange = this.handleValueChange.bind(this);
     this.findInfoUser = this.findInfoUser.bind(this);
+  }
+
+  handleValueChange(value) {
+    console.log(value)
+    this.setState({
+      value: value
+    })
   }
 
   async findInfoUser(e) {
     e.preventDefault();
 
-    const inputName = document.querySelector(".input");
+    if (this.state.value == "") return;
 
-    if (inputName.value == "") return;
-
-    if (inputName.value.length <= 2) {
+    if (this.state.value.length <= 2) {
       this.setState({
         warn: true
       })
@@ -32,19 +41,18 @@ export default class Form extends React.Component {
       })
     }
 
-    const information = await requestGenderByName(inputName.value);
+    const information = await requestGenderByName(this.state.value);
 
     this.setState({
-      infoUser: `${information.name} is ${information.gender}`
+      infoUser: `${information.name} is ${information.gender}`,
+      value: ''
     });
-
-    document.querySelector('.form').reset();
   }
 
   render() {
     return (
       <form className="form" onSubmit={this.findInfoUser}>
-        <Input />
+        <Input value={this.state.value} onValueChange={this.handleValueChange} />
         <Button />
         <Deduction infoUser={this.state.infoUser} />
         <Warning warn={this.state.warn} />
