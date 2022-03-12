@@ -1,19 +1,10 @@
 import React from 'react'
 
-export default class Input extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
+export default function Input(props) {
+  function handleChange(e) {
+    props.onNameChange(e.target.value)
   }
-
-  handleChange(e) {
-    this.props.onValueChange(e.target.value)
-  }
-
-  render() {
-    return (
-      <input type="text" placeholder="Введи имя и узнай гендер" className="input" value={this.props.value} onChange={this.handleChange} />
-    )
-  }
+  return (
+    <input type="text" placeholder="Введи имя и узнай гендер" className="input" value={props.value} onChange={handleChange} />
+  )
 }

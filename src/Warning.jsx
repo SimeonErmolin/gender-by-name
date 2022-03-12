@@ -1,14 +1,10 @@
 import React from 'react'
 
-export default class Warning extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+export default function Warning(props) {
+  if (props.warn == '') return null;
+  if (props.warn.length >= 2) return null;
 
-  render() {
-    if (!this.props.warn) return null;
-    return (
-        <p className="result warning">Слишком короткое имя!</p>
-    )
-  }
+  return (
+    <p className="result warning">Слишком короткое имя!</p>
+  )
 }
